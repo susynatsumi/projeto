@@ -26,6 +26,7 @@ import lombok.EqualsAndHashCode;
 @DataTransferObject
 public class Cliente extends AbstractEntity{
 
+	
 	/**
 	 * 
 	 */

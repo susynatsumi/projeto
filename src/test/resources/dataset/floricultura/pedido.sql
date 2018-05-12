@@ -10,9 +10,8 @@ SET search_path TO public;
 
 TRUNCATE "pedido" CASCADE;
 
-INSERT INTO "pedido" (idPedido, created, disabled, totalItens, dataPedido, precoTotal, name, role) 
-     VALUES ( 1000, NOW(), false, 'd1bd2f08fead38a982aed9d4ca060152400b1b8f', 'Administrator', 0);
+INSERT INTO pedido (
+			id, created, updated, totalItens, dataPedido, precoTotal) 
+     VALUES ( 1002, NOW(), NULL, 3, NOW(), 10.00);
      
-INSERT INTO "pedido" (idPedido, created, disabled, totalItens, dataPedido, precoTotal, name, role) 
-     VALUES ( 1001, NOW(), false, 'user001@testing.com', 'd1bd2f08fead38a982aed9d4ca060152400b1b8f', 0);
      

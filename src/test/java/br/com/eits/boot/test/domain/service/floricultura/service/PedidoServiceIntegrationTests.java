@@ -26,6 +26,7 @@ public class PedidoServiceIntegrationTests extends AbstractIntegrationTests{
 	@WithUserDetails("admin@email.com")
 	@Sql({
 		"/dataset/account/users.sql",
+		"/dataset/floricultura/cliente.sql",
 		"/dataset/floricultura/pedido.sql"
 	})
 	public void insertPedidoMustPass() {
@@ -44,17 +45,18 @@ public class PedidoServiceIntegrationTests extends AbstractIntegrationTests{
 	@WithUserDetails("admin@email.com")
 	@Sql({
 		"/dataset/account/users.sql",
+		"/dataset/floricultura/cliente.sql",
 		"/dataset/floricultura/pedido.sql"
 	})
 	public void updatePedidoMustPass() { //atualiza
 		
-		final Pedido pedido = this.iPedidosRepository.findById(-6872025176485866356L).orElse(null);
+		final Pedido pedido = this.iPedidosRepository.findById(1002L).orElse(null);
 		pedido.setTotalItens(new Double(2000));
 		pedido.setPrecoTotal(new BigDecimal(600.00));
 		this.pedidoService.updatePedido(pedido);
 		
 		Assert.assertNotNull(pedido);	
-		final Pedido pedidoAlterado = this.iPedidosRepository.findById(-6872025176485866356L).orElse(null);
+		final Pedido pedidoAlterado = this.iPedidosRepository.findById(1002L).orElse(null);
 		Assert.assertNotNull(pedidoAlterado);
 		Assert.assertEquals(pedidoAlterado.getTotalItens(), "2000");
 		Assert.assertEquals(pedidoAlterado.getPrecoTotal(), "600.00");

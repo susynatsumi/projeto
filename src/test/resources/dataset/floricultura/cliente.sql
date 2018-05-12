@@ -8,7 +8,7 @@ SET default_with_oids = false;
 
 SET search_path TO public;
 
-TRUNCATE "cliente" CASCADE;
+TRUNCATE cliente CASCADE;
 
 INSERT INTO cliente(
             id, created, updated, cep, cidade, data_nascimento, email, estado, 

@@ -6,4 +6,5 @@ import br.com.eits.boot.domain.entity.floricultura.pedido.Pedido;
 
 public interface IPedidoRepository extends JpaRepository<Pedido, Long>{
 
+	
 }

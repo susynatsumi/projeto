@@ -56,13 +56,6 @@ public class Produto extends AbstractEntity{
 			optional = false
 	)
 	private TipoFamiliar familiar;
-	
-	//TODO lembrar de por o pedido conversar com prof
 
-//	@ManyToOne(
-//			fetch = FetchType.LAZY, 
-//			targetEntity = Pedido.class,
-//			
-//	)
-//	private Pedido pedido;
+
 }

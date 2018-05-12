@@ -3,6 +3,8 @@ package br.com.eits.boot.domain.service.floricultura;
 
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -21,7 +23,6 @@ public class ClienteService {
 	public Cliente insertCliente(Cliente cliente) {
 		
 		Assert.notNull(cliente, "cliente nao pode ser nulo");
-//		cliente.setTipoPessoa(TipoPessoa.PESSOA_FISICA);
 		return this.clientesRepository.save(cliente);
 		
 	}
@@ -32,4 +33,20 @@ public class ClienteService {
 		return this.clientesRepository.save(cliente);
 	}
 
+	public Page<Cliente> listClientesByFilters(
+			String nomeCliente,
+			String emailCliente,
+			String cidadeCliente,
+			PageRequest pageRequest 
+			) {
+		return this.clientesRepository.listByFilters(
+				nomeCliente, 
+				emailCliente,
+				cidadeCliente,
+				pageRequest);
+	}
+	
+	public void removeCliente(Long clienteId) {
+		this.clientesRepository.deleteById(clienteId);
+	}
 }

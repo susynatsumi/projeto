@@ -9,6 +9,8 @@ import javax.validation.ValidationException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.data.domain.Page;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -138,7 +140,7 @@ public class ClienteServiceIntegrationTests extends AbstractIntegrationTests {
 	
 	}
 	
-	@Test(expected = DateTimeException.class)
+    @Test(expected = DateTimeException.class) //InvalidValue
 	@WithUserDetails("admin@email.com")
 	@Sql({
 		"/dataset/account/users.sql",
@@ -149,7 +151,7 @@ public class ClienteServiceIntegrationTests extends AbstractIntegrationTests {
 		final Cliente cliente = new Cliente();
 		cliente.setNome("Qualquer Coisa");
 		cliente.setEmail("edi@email.com");
-		cliente.setDataNascimento(LocalDate.of(00, 00, 00));
+		cliente.setDataNascimento(LocalDate.of(0, 0, 0));
 		cliente.setPais("Paraguai");
 		cliente.setEstado("Buenas");
 		cliente.setCidade("Missal");
@@ -163,7 +165,7 @@ public class ClienteServiceIntegrationTests extends AbstractIntegrationTests {
 		Assert.assertNotNull(cliente.getId());
 		
 	}
-	
+    
 	@Test
 	@WithUserDetails("admin@email.com")
 	@Sql({
@@ -273,6 +275,32 @@ public class ClienteServiceIntegrationTests extends AbstractIntegrationTests {
 		
 	} 
 	
+	@Test(expected = ValidationException.class)
+	@WithUserDetails("admin@email.com")
+	@Sql({
+		"/dataset/account/users.sql",
+		"/dataset/floricultura/cliente.sql"
+	})
+	public void insertClienteMustFailMandatoryFieldCidade() {
+	
+		final Cliente cliente = new Cliente();
+		cliente.setNome("Qualquer Coisa");
+		cliente.setEmail("edi@email.com");
+		cliente.setDataNascimento(LocalDate.of(2016, Month.APRIL, 9));
+		cliente.setPais("Paraguai");
+		cliente.setEstado("Buenas");
+		cliente.setCidade(null);
+		cliente.setCep("8589000");
+		cliente.setRua("Jose de abreu");
+		cliente.setSexo(Sexo.FEMININO);
+		cliente.setTipoPessoa(TipoPessoa.PESSOA_FISICA);
+		this.clienteService.insertCliente(cliente);
+		
+		Assert.assertNotNull(cliente);
+		Assert.assertNotNull(cliente.getId());
+		
+	}
+	
 	@Test
 	@WithUserDetails("admin@email.com")
 	@Sql({
@@ -335,7 +363,33 @@ public class ClienteServiceIntegrationTests extends AbstractIntegrationTests {
 		Assert.assertNotNull(cliente);
 	Assert.assertEquals("85877000", clienteBusca.getCep());
 		
-	} 
+	}
+	
+	@Test(expected = ValidationException.class)
+	@WithUserDetails("admin@email.com")
+	@Sql({
+		"/dataset/account/users.sql",
+		"/dataset/floricultura/cliente.sql"
+	})
+	public void insertClienteMustFailMandatoryFieldRua() {
+	
+		final Cliente cliente = new Cliente();
+		cliente.setNome("Qualquer Coisa");
+		cliente.setEmail("edi@email.com");
+		cliente.setDataNascimento(LocalDate.of(2016, Month.APRIL, 9));
+		cliente.setPais("Paraguai");
+		cliente.setEstado("Buenas");
+		cliente.setCidade("Missal");
+		cliente.setCep("8589000");
+		cliente.setRua(null);
+		cliente.setSexo(Sexo.FEMININO);
+		cliente.setTipoPessoa(TipoPessoa.PESSOA_FISICA);
+		this.clienteService.insertCliente(cliente);
+		
+		Assert.assertNotNull(cliente);
+		Assert.assertNotNull(cliente.getId());
+		
+	}
 	
 	@Test
 	@WithUserDetails("admin@email.com")
@@ -355,4 +409,67 @@ public class ClienteServiceIntegrationTests extends AbstractIntegrationTests {
 		Assert.assertEquals("Montreal", clienteBusca.getEstado());
 		
 	} 
+	@Test
+	@WithUserDetails("admin@email.com")
+	@Sql({
+		"/dataset/account/users.sql",
+		"/dataset/floricultura/cliente.sql"
+	})
+	public void listClientesMustPassReturnUm() {
+		
+		final Page<Cliente> clientes = this.clienteService.listClientesByFilters(
+				null, 
+				null, 
+				null,
+				null);
+		
+		Assert.assertNotNull(clientes);
+		Assert.assertEquals(2L, clientes.getTotalElements());
+		
+	}
+	@Test
+	@WithUserDetails("admin@email.com")
+	@Sql({
+		"/dataset/account/users.sql",
+		"/dataset/floricultura/cliente.sql"
+	})
+	public void listClientesMustPassNome() {
+		
+		final Page<Cliente> clientes = this.clienteService.listClientesByFilters(
+				"Cabral", 
+				null, 
+				null,
+				null);
+		
+		Assert.assertNotNull(clientes);
+		Assert.assertEquals(2L, clientes.getTotalElements());
+		Assert.assertTrue(1000L == clientes.getContent().get(0).getId());
+		
+	}
+	
+	@Test
+	@WithUserDetails("admin@email.com")
+	@Sql({
+		"/dataset/account/users.sql",
+		"/dataset/floricultura/cliente.sql"
+	})
+	public void RemoveClienteMustPass() {
+		
+		this.clienteService.removeCliente(1000L);
+		
+		final Cliente cliente = this.clienteRepository.findById(1000L).orElse(null);
+		Assert.assertNull(cliente);
+	}
+	
+	@Test
+	@WithUserDetails("admin@email.com")
+	@Sql({
+		"/dataset/account/users.sql",
+		"/dataset/floricultura/cliente.sql"
+	})
+	public void RemoveClienteMustFail() {
+		
+		this.clienteService.removeCliente(1000L);
+
+	}
 }
