@@ -1,0 +1,51 @@
+Arguments: 
+  C:\Users\Eduardo\.node\node\node.exe C:\Users\Eduardo\.node\node\yarn\dist\bin\yarn.js install --mutex network
+
+PATH: 
+  C:\Users\Eduardo\.node\node;C:\Users\Eduardo\.node\node\yarn\dist\bin;C:/Program Files/Java/jre1.8.0_161/bin/server;C:/Program Files/Java/jre1.8.0_161/bin;C:/Program Files/Java/jre1.8.0_161/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Users\Eduardo\AppData\Local\Microsoft\WindowsApps;C:\Users\Eduardo\AppData\Roaming\npm;;C:\Program Files\Microsoft VS Code\bin;D:\Programas & outros\eclipse;;
+
+Yarn version: 
+  1.3.2
+
+Node version: 
+  9.4.0
+
+Platform: 
+  win32 x64
+
+npm manifest: 
+  {
+    "name": "boot",
+    "version": "0.0.0",
+    "license": "MIT",
+    "scripts": {
+      "start": "ng serve --proxy-config proxy.conf.json",
+      "mavenbuild": "ng build --progress false"
+    },
+    "private": true,
+    "dependencies": {
+      "eits-ng-starter-2018-01": "^0.6.0"
+    },
+    "devDependencies": {
+      "eits-ng-starter-2018-01-dev": "^0.6.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: write EPIPE
+      at _errnoException (util.js:1003:13)
+      at Socket._writeGeneric (net.js:763:25)
+      at Socket._write (net.js:782:8)
+      at doWrite (_stream_writable.js:407:12)
+      at writeOrBuffer (_stream_writable.js:393:5)
+      at Socket.Writable.write (_stream_writable.js:290:11)
+      at ConsoleReporter._log (C:\Users\Eduardo\.node\node\yarn\dist\lib\cli.js:87285:17)
+      at ConsoleReporter._logCategory (C:\Users\Eduardo\.node\node\yarn\dist\lib\cli.js:87161:10)
+      at ConsoleReporter.info (C:\Users\Eduardo\.node\node\yarn\dist\lib\cli.js:87298:10)
+      at pushError (C:\Users\Eduardo\.node\node\yarn\dist\lib\cli.js:60012:16)
