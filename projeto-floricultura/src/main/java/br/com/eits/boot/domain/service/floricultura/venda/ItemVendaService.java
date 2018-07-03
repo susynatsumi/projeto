@@ -1,18 +1,24 @@
 package br.com.eits.boot.domain.service.floricultura.venda;
 
+import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import br.com.eits.boot.domain.entity.floricultura.pedido.ItemPedido;
-import br.com.eits.boot.domain.repository.floricultura.pedido.IItemPedidoRepository;
+import br.com.eits.boot.domain.entity.floricultura.venda.ItemVenda;
+import br.com.eits.boot.domain.repository.floricultura.venda.IItemVendaRepository;
 
+@Service
+@Transactional
+@RemoteProxy
 public class ItemVendaService {
 
 	@Autowired
-	private IItemPedidoRepository pedidoRepository;
+	private IItemVendaRepository iItemVendaRepository;
 	
-	public ItemPedido insertItensPedido(ItemPedido itemPedido) {
-		Assert.notNull(itemPedido, "cliente nao pode ser nulo");
-		return this.pedidoRepository.save(itemPedido);
+	public ItemVenda insertItem(ItemVenda itemVenda) {
+		Assert.notNull(itemVenda, "Item não pode ser nulo");
+		return this.iItemVendaRepository.save(itemVenda);
 	}
 }

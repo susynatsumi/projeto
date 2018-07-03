@@ -29,7 +29,6 @@ public class PedidoServiceIntegrationTests extends AbstractIntegrationTests {
 	@Test
 	@WithUserDetails("admin@email.com")
 	@Sql({ "/dataset/account/users.sql",
-		"/dataset/floricultura/clientes.sql",
 		"/dataset/floricultura/pedidos.sql"
 	})
 	public void insertPedidoMustPass() {
@@ -77,14 +76,13 @@ public class PedidoServiceIntegrationTests extends AbstractIntegrationTests {
 	@Test
 	@WithUserDetails("admin@email.com")
 	@Sql({ "/dataset/account/users.sql", 
-		"/dataset/floricultura/clientes.sql",
 		"/dataset/floricultura/pedidos.sql" })
 	public void updatePedidoMustPassTotalItens() { // atualiza
 
 		final Cliente cliente = new Cliente();
 		cliente.setId(1000L);
 		
-		final Pedido pedido = this.pedidosRepository.findById(1001L).orElse(null);
+		final Pedido pedido = this.pedidosRepository.findById(1002L).orElse(null);
 		pedido.setId(1001L);
 		pedido.setTotalItens(new Double(10));
 		pedido.setDataPedido(LocalDate.of(2015, Month.FEBRUARY, 9));

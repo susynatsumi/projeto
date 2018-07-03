@@ -5,6 +5,6 @@ import org.directwebremoting.annotations.DataTransferObject;
 @DataTransferObject(type = "enum")
 public enum NaturezaVenda {
 
-	VENDA,
-	PEDIDO;
+	VENDA, // 0
+	PEDIDO; // 1
 }

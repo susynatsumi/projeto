@@ -25,7 +25,7 @@ WITH (
 ALTER TABLE cliente
   OWNER TO floricultura;
 
-  -- Table: auditing.cliente_audited
+-- Table: auditing.cliente_audited
 
 -- DROP TABLE auditing.cliente_audited;
 
@@ -56,8 +56,7 @@ ALTER TABLE auditing.cliente_audited
   OWNER TO floricultura;
 
   -- ----------------------------------------------------------
-  
-  -- Table: cor
+ -- Table: cor
 
 -- DROP TABLE cor;
 
@@ -76,7 +75,7 @@ WITH (
 ALTER TABLE cor
   OWNER TO floricultura;
 
-  -- Table: auditing.cor_audited
+-- Table: auditing.cor_audited
 
 -- DROP TABLE auditing.cor_audited;
 
@@ -96,6 +95,7 @@ WITH (
 );
 ALTER TABLE auditing.cor_audited
   OWNER TO floricultura;
+
 
   -- ----------------------------------------------
   
@@ -117,6 +117,7 @@ WITH (
 ALTER TABLE tipo_familiar
   OWNER TO floricultura;
 
+
 -- Table: auditing.tipo_familiar_audited
 
 -- DROP TABLE auditing.tipo_familiar_audited;
@@ -137,6 +138,7 @@ WITH (
 );
 ALTER TABLE auditing.tipo_familiar_audited
   OWNER TO floricultura;
+
 
 -- -----------------------------------------------------------
   
@@ -185,9 +187,10 @@ WITH (
 ALTER TABLE auditing.vendedor_audited
   OWNER TO floricultura;
 
+
 -- ----------------------------------------------------
   
--- Table: venda
+--- Table: venda
 
 -- DROP TABLE venda;
 
@@ -240,6 +243,7 @@ WITH (
 );
 ALTER TABLE auditing.venda_audited
   OWNER TO floricultura;
+
 
 -- -----------------------------------------------------------
   
@@ -297,6 +301,7 @@ WITH (
 ALTER TABLE auditing.produto_audited
   OWNER TO floricultura;
 
+
 -- -------------------------------------------------
   
 -- Table: pedido
@@ -347,6 +352,7 @@ WITH (
 ALTER TABLE auditing.pedido_audited
   OWNER TO floricultura;
 
+
 -- -----------------------------------------------------------
   
 -- Table: item_venda
@@ -360,8 +366,12 @@ CREATE TABLE item_venda
   updated timestamp without time zone,
   preco_unitario numeric(19,2) NOT NULL,
   quantidade integer NOT NULL,
+  produto_id bigint NOT NULL,
   venda_id bigint,
   CONSTRAINT item_venda_pkey PRIMARY KEY (id),
+  CONSTRAINT fk7wkinkvno0wlhv821hhu34y04 FOREIGN KEY (produto_id)
+      REFERENCES produto (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT fkkiky88fkai72328rhw3r3yebx FOREIGN KEY (venda_id)
       REFERENCES venda (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -371,6 +381,7 @@ WITH (
 );
 ALTER TABLE item_venda
   OWNER TO floricultura;
+
 
 -- Table: auditing.item_venda_audited
 
@@ -383,6 +394,7 @@ CREATE TABLE auditing.item_venda_audited
   revision_type smallint,
   preco_unitario numeric(19,2),
   quantidade integer,
+  produto_id bigint,
   venda_id bigint,
   CONSTRAINT item_venda_audited_pkey PRIMARY KEY (id, revision),
   CONSTRAINT fkbqe6l5nhnk8hth28nim16ot0j FOREIGN KEY (revision)
@@ -394,6 +406,7 @@ WITH (
 );
 ALTER TABLE auditing.item_venda_audited
   OWNER TO floricultura;
+
 
 -- -------------------------------------------------------------
   
@@ -423,6 +436,7 @@ WITH (
 );
 ALTER TABLE item_pedido
   OWNER TO floricultura;
+
 
 -- Table: auditing.item_pedido_audited
 

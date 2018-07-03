@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,18 +22,23 @@ public interface IVendaRepository extends JpaRepository<Venda, Long> {
 	Optional<Venda> findById(@Param("idVenda") Long id);
 
 	@EntityGraph("itensVenda.itemVenda")
-	@Query("FROM Venda venda "
+	@Query(" FROM Venda venda "
 			+ " WHERE "
-			+ " 	("
-			+ "			( :vendedorNome IS NULL OR :vendedorNome = '' OR venda.vendedor.name LIKE %:vendedorNome% ) "
-			+ "		AND ( :)"	
-			+ "		AND ( :entregaStatus IS NULL OR venda.status = :entregaStatus ) "
-			+ "		AND ( :naturezaVenda IS NULL OR venda.natureza = :naturezaVenda ) "
+			+ " 	( "
+			+ "			( :vendedorNome IS NULL OR :vendedorNome = '' OR venda.vendedor.nome LIKE '%' || cast( :vendedorNome as text) || '%' ) "
+			+ "		AND ( :entregaStatus IS NULL OR venda.entregaStatus = :entregaStatus ) "
+			+ "		AND ( :naturezaVenda IS NULL OR venda.naturezaVenda = :naturezaVenda ) "
 			+ "		AND ( :valor IS NULL OR venda.valor = :valor ) "
-			+ "		AND ( :valorTotal IS NULL OR venda.valor = :valorTotal ) "
-			+ "		AND ( :valorPago IS NULL OR venda.valor = :valorPago ) "
+			+ "		AND ( :valorTotal IS NULL OR venda.valorTotal = :valorTotal ) "
+			+ "		AND ( :valorPago IS NULL OR venda.valorPago = :valorPago ) "
 			+ "		)")
-	Page<Venda> listByFilters(String nomeVendedor, EntregaStatus entregaStatus, NaturezaVenda naturezaVenda,
-			Integer valor, BigDecimal valorTotal, BigDecimal valorPago, PageRequest pageRequest);
+	Page<Venda> listByFilters(
+			@Param("vendedorNome") String nomeVendedor,
+			@Param("entregaStatus") EntregaStatus entregaStatus,
+			@Param("naturezaVenda")  NaturezaVenda naturezaVenda,
+			@Param("valor") Integer valor,
+			@Param("valorTotal") BigDecimal valorTotal, 
+			@Param("valorPago")  BigDecimal valorPago,
+			Pageable pageable);
 
 }

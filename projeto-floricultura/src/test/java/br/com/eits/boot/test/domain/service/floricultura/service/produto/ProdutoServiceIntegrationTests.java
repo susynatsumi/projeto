@@ -63,7 +63,6 @@ public class ProdutoServiceIntegrationTests extends AbstractIntegrationTests {
 
 		final Produto produto = new Produto();
 		this.produtoService.insertProduto(produto);
-		Assert.assertNotNull(produto);
 	}
 
 //	@Test

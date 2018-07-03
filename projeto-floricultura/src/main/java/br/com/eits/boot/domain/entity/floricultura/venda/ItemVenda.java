@@ -38,14 +38,20 @@ public class ItemVenda extends AbstractEntity{
 	@Column(nullable = false)
 	private Integer quantidade;
 	
-	@ManyToOne(targetEntity = Venda.class)
+	@ManyToOne(
+		fetch = FetchType.LAZY,
+		targetEntity = Venda.class,
+		optional = false
+	)
 	private Venda venda;
 	
 	@ManyToOne(
-			fetch = FetchType.LAZY,
-			targetEntity = Produto.class,
-			optional = false
+		fetch = FetchType.LAZY,
+		targetEntity = Produto.class,
+		optional = false
 	)
 	private Produto produto;
+	
+	
 
 }

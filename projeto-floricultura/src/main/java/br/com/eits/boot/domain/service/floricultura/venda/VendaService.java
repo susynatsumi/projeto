@@ -8,7 +8,7 @@ import java.util.List;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +61,7 @@ public class VendaService {
 			Integer valor,
 			BigDecimal valorTotal,
 			BigDecimal valorPago,
-			PageRequest pageRequest)
+			Pageable pageable)
 
 	{
 		return this.vendaRepository.listByFilters(
@@ -71,7 +71,7 @@ public class VendaService {
 				valor, 
 				valorTotal,
 				valorPago,
-				pageRequest);
+				pageable);
 	}
 	
 	public void removeVenda(Long id) {

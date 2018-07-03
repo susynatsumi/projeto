@@ -53,7 +53,7 @@ public class VendaServiceIntegrationTests extends AbstractIntegrationTests {
 		"/dataset/floricultura/vendas.sql"
 	})
 	public void insertVendaMustPassVerifySituacao() {
-		
+
 		final Venda venda = new Venda();
 		venda.setData(LocalDate.now());
 		venda.setValor(new BigDecimal(2000.00));
