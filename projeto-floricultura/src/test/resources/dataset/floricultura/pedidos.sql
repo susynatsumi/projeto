@@ -8,30 +8,19 @@ SET default_with_oids = false;
 
 SET search_path TO public;
 
-TRUNCATE "cliente" CASCADE;
+
+TRUNCATE cliente CASCADE;
+
+TRUNCATE "pedido" CASCADE;
 
 INSERT INTO cliente(
             id, created, updated, cep, cidade, data_nascimento, email, estado, 
             nome, pais, rua, sexo, tipo_pessoa)
     VALUES (1000, NOW(), NULL, '85877000', 'Missal', NOW(), 'paranaue@email.com', 'Parana', 
-            'Cabral', 'Brasil', 'Jaozino', 1, 0);
-            
-INSERT INTO cliente(
-            id, created, updated, cep, cidade, data_nascimento, email, estado, 
-            nome, pais, rua, sexo, tipo_pessoa)
-    VALUES (1001, NOW(), NULL, '5588000', 'Ottawa', NOW(), 'caedu@email.com', 'Toronto', 
-            'Eduardo', 'Canada', 'Greely', 0, 1);
+            'Cabral', 'Brasil', 'Jaozino', 0, 1);
 
------------------------------------------------------------------------------------------------
-
-TRUNCATE "pedido" CASCADE;
-
-INSERT INTO pedido(
-            id, created, updated, data_pedido, preco_total, total_itens, cliente_id)
-    VALUES (1001, NOW(), NULL, NOW(), 11.00, 1, 1000);
-     
-INSERT INTO pedido(
-            id, created, updated, data_pedido, preco_total, total_itens, cliente_id)
-    VALUES (1002, NOW(), NULL, NOW(), 12.00, 2, 1001);
+INSERT INTO pedido (
+			id, created, updated, total_itens, data_pedido, preco_total, cliente_id) 
+     VALUES ( 1002, NOW(), NULL, 3, NOW(), 10.00, 1000);
      
      
